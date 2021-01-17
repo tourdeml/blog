@@ -3,3 +3,6 @@ title: "Demystifying Gradients"
 site: distill::distill_website
 listing: posts
 ---
+<head>
+<meta name="google-site-verification" content="7NsifbLkAAEoVzb5GhBMklfiBv0iMh78Llht-xBDsm0" />
+</head>
