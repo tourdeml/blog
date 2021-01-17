@@ -4,6 +4,7 @@ description: |
   Explaining gradients using code, visualizations and some effort!
 output_dir: "docs"
 base_url: https://tourdeml.github.io/blog
+google_analytics: "G-S6TKMZGJT0"
 navbar:
   search: true
   right:
