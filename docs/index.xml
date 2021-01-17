@@ -1,46 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>My Blog</title>
+    <title>Tour de ML</title>
     <link>https://tourdeml.github.io/blog</link>
     <atom:link href="https://tourdeml.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
-    <description>My Blog
+    <description>Explaining gradients using code, visualizations and some effort!
 </description>
     <generator>Distill</generator>
     <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>The Sharpe Ratio</title>
-      <dc:creator>Nora adsfaf</dc:creator>
-      <link>https://tourdeml.github.io/blog/posts/2021-01-17-the-sharpe-ratio</link>
-      <description>A short description of the post.</description>
-      <category>portfolios</category>
-      <category>dygraphs</category>
-      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-the-sharpe-ratio</guid>
+      <title>DALL-E: OpenAI making Neural Networks cute!</title>
+      <dc:creator>Test author</dc:creator>
+      <link>https://tourdeml.github.io/blog/posts/2021-01-17-dall-e-openai-making-neural-networks-cute</link>
+      <description>DALL-E by OpenAI is a generative model - translating text to images!</description>
+      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-dall-e-openai-making-neural-networks-cute</guid>
       <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>The test Radsf</title>
-      <dc:creator>Nora adsfaf</dc:creator>
-      <link>https://tourdeml.github.io/blog/posts/2021-01-17-the-test-radsf</link>
-      <description>A short description of the post.</description>
-      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-the-test-radsf</guid>
+      <title>Hogwild! - Parallelized SGD</title>
+      <dc:creator>Test author</dc:creator>
+      <link>https://tourdeml.github.io/blog/posts/2021-01-17-hogwild-parallelized-sgd</link>
+      <description>Recent recepient of NeurIPS 2020 award for standing the test of time, Hogwild!...</description>
+      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-hogwild-parallelized-sgd</guid>
       <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>The test Ratio</title>
-      <dc:creator>Nora adsfaf</dc:creator>
-      <link>https://tourdeml.github.io/blog/posts/2021-01-17-the-test-ratio</link>
-      <description>A short description of the post.</description>
-      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-the-test-ratio</guid>
-      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Welcome to My Blog</title>
-      <dc:creator>Test</dc:creator>
-      <link>https://tourdeml.github.io/blog/posts/welcome</link>
-      <description>Welcome to our new blog, My Blog. We hope you enjoy 
-reading what we have to say!</description>
-      <guid>https://tourdeml.github.io/blog/posts/welcome</guid>
+      <title>Introducing Demystifying Gradients</title>
+      <dc:creator>Test author</dc:creator>
+      <link>https://tourdeml.github.io/blog/posts/2021-01-17-introducing-demystifying-gradients</link>
+      <description>Presenting "Demystifying Gradients, by Tour de ML"</description>
+      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-introducing-demystifying-gradients</guid>
       <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>

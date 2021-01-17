@@ -1,7 +1,7 @@
-name: "test-blog"
-title: "My Blog"
+name: "demystifying_gradients"
+title: "Tour de ML"
 description: |
-  My Blog
+  Explaining gradients using code, visualizations and some effort!
 output_dir: "docs"
 base_url: https://tourdeml.github.io/blog
 navbar:
@@ -9,6 +9,16 @@ navbar:
   right:
     - text: "Home"
       href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Official site"
+      href: https://tourdeml.github.io
+    - icon: fab fa-twitter
+      href: https://twitter.com/tourdeml
+    - icon: fab fa-github
+      href: https://github.com/tourdeml
+    - icon: fab fa-youtube
+      href: https://github.com/tourdeml
     - icon: fa fa-rss
       href: index.xml
 output:
@@ -23,11 +33,6 @@ collections:
     subscribe: _subscribers.html
   analyses:
     categories: true
-cookie_consent:
-  style: simple
-  type: express
-  palette: light
-  lang: en
-  cookies_policy: url
+
 twitter:
-  site: "@distilljournal"
+  site: "@tourdeml"

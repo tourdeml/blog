@@ -1,10 +1,19 @@
 ---
 title: "About this blog"
 description: |
-  Some additional details about the blog
+  Clear, Crisp, Open Source.
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-Testing af
+This blog aims to deconstruct state-of-the-art, unique approaches in solving various problems across fields including Computer Vision, Differential privacy, Hardware & Deep Learning, Natural Language Processing, Optimization. 
+
+Join the club to catch up on on new posts including updates on recent research, weekly updates in the world of neural networks and many more. The newsletter is handled by ButtonDown, with sole focus on keeping your data private, so do consider subscribing. Incase you don't need notifications, consider subscribing using Feedly - you control when you get to receive the updates!
+
+<iframe
+scrolling="no"
+style="width:100%!important;height:220px;border:1px #ccc solid !important"
+src="https://buttondown.email/tour.de.ml?as_embed=true"
+></iframe>
+<h4>or use Feedly to view all your subscriptions at one place</h4><a href='https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Ftourdeml.github.io%2Fblog'  target='blank'><img id='feedlyFollow' src='http://s3.feedly.com/img/follows/feedly-follow-rectangle-flat-medium_2x.png' alt='follow us in feedly' width='71' height='28'></a>
