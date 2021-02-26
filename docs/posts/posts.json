@@ -1,20 +1,24 @@
 [
   {
-    "path": "posts/2021-01-17-dall-e-openai-making-neural-networks-cute/",
-    "title": "DALL-E: OpenAI making Neural Networks cute!",
-    "description": "DALL-E by OpenAI is a generative model - translating text to images!",
+    "path": "posts/2021-02-26-sam-sharpness-aware-minimization/",
+    "title": "SAM: Sharpness-Aware Minimization",
+    "description": "Improving generalization by minimizing loss in a neighbourhood space.",
     "author": [
       {
-        "name": "Test author",
-        "url": {}
+        "name": "Vaibhav Balloli",
+        "url": {
+          "https://vballoli.github.io": {}
+        }
       }
     ],
-    "date": "2021-01-17",
+    "date": "2021-02-26",
     "categories": [],
-    "contents": "\n\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-01-17T12:58:19+01:00",
-    "input_file": {}
+    "contents": "\n\nContents\nFoundation\nM-Sharpness\nCode\n\nSharness-Aware Minimization(SAM)Foret et al. (2020) is a simple, yet interesting procedure that aims to minimize the loss and the loss sharpness using gradient descent by identifying a parameter-neighbourhood that has the same uniform loss.\nFoundation\nGiven a training set \\(S\\) sampled i.i.d from \\(D\\), the following theorem states a bound for generalization in terms of neighbourhood training loss at weight \\(w\\)\n\\[\nL_D(w) \\leq max_{||\\epsilon \\leq \\rho ||}L_S(w+\\epsilon) + h(\\frac{||w||_2^2}{\\rho^2})\n\\] Notice that the second term is equivalent to L2 normalization. Taking the first term: \\[\nmax_{||\\epsilon \\leq \\rho ||}L_S(w + \\epsilon) = [max_{||\\epsilon \\leq \\rho ||}L_S(w + \\epsilon) - L_S(w)] + L_S(w)\n\\] The term \\(max_{||\\epsilon \\leq \\rho ||}L_S(w + \\epsilon) - L_S(w)\\) is defined as sharpness at \\(w\\). The training objective is now \\(L_{SAM}(w) + \\lambda||w||_2^2\\), where \\(L_{SAM}(w) = max_{||\\epsilon \\leq \\rho ||}L_S(w+\\epsilon)\\). After taylor series to this equation and solving for \\(\\epsilon = \\epsilon(w)\\), we arrive at: >\\[\n\\epsilon(w) = \\rho sign(\\nabla_wL_S(w)) \\frac{|\\nabla_wL_S(w)|^{q-1}}{(||\\nabla_wL_S(w)||_{q}^{q})^p},(q = \\frac{p}{p-1}\\,from\\,Holder's \\,inequality)\n\\]\nSimply put, at \\(p = q = 2\\), SAM is a two-step process: 1) Calculate the gradients(First backward pass) 2) Calculate \\(\\epsilon(w)\\) 3) Recaclulate gradients(Second backward pass). This means if if all the batches are used for training, each epoch involves calculating gradients twice, which can be expensive.\nM-Sharpness\nThe paper further defines m-sharpness: the idea behind which is if m subset of the training data batch is used to calculate the gradients in the first backward pass of the epoch. The diagram below from the paper illustrates the impact of m. The left chart indicates that at \\(m=4,16\\) the generalization gap is lower and the right chart indicates the correlation of generalization gap and m which shows that lower values of m have higher correlation with the generalization gap.\n\n\n\nCode\nThis repository Hataya (2020) provides a clean implementation of SAM in PyTorch. We further extend this implementation to be able to wrap most optimizers. You can find the code at Balloli (2021)\nmodel = resnet18()\noptim = torch.optim.SGD(model.parameters(), 1e-3)\noptim = SAM(model.parameters(), optim)\ndef closure():\n  optim.zero_grad()\n  loss = model(torch.randn(1,3,64,64)).sum()\n  loss.backward()\n  return loss\noptim.step(closure)\n\n\n\n\nBalloli, Vaibhav. 2021. https://github.com/tourdeml/sam.\n\n\nForet, Pierre, Ariel Kleiner, Hossein Mobahi, and Behnam Neyshabur. 2020. “Sharpness-Aware Minimization for Efficiently Improving Generalization.”\n\n\nHataya, Ryuichiro. 2020. https://github.com/moskomule/sam.pytorch.\n\n\n\n\n",
+    "preview": "posts/2021-02-26-sam-sharpness-aware-minimization/msharp.png",
+    "last_modified": "2021-02-26T14:24:53+01:00",
+    "input_file": {},
+    "preview_width": 549,
+    "preview_height": 302
   },
   {
     "path": "posts/2021-01-17-hogwild-parallelized-sgd/",
@@ -28,9 +32,9 @@
     ],
     "date": "2021-01-17",
     "categories": [],
-    "contents": "\n\n\n\n\n",
+    "contents": "\n\n\n\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-01-17T12:58:13+01:00",
+    "last_modified": "2021-02-26T11:07:54+01:00",
     "input_file": {}
   },
   {
