@@ -7,7 +7,17 @@
     <description>Explaining gradients using code, visualizations and some effort!
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Adaptive Gradient Clipping</title>
+      <dc:creator>Vaibhav Balloli</dc:creator>
+      <dc:creator/>
+      <link>https://tourdeml.github.io/blog/posts/2021-03-31-adaptive-gradient-clipping</link>
+      <description>Gradient Clipping to remove batchnorm layers.</description>
+      <guid>https://tourdeml.github.io/blog/posts/2021-03-31-adaptive-gradient-clipping</guid>
+      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://tourdeml.github.io/blog/posts/2021-03-31-adaptive-gradient-clipping/nf.png" medium="image" type="image/png" width="522" height="157"/>
+    </item>
     <item>
       <title>SAM: Sharpness-Aware Minimization</title>
       <dc:creator>Vaibhav Balloli</dc:creator>

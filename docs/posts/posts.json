@@ -1,5 +1,30 @@
 [
   {
+    "path": "posts/2021-03-31-adaptive-gradient-clipping/",
+    "title": "Adaptive Gradient Clipping",
+    "description": "Gradient Clipping to remove batchnorm layers.",
+    "author": [
+      {
+        "name": "Vaibhav Balloli",
+        "url": {}
+      },
+      {
+        "name": "",
+        "url": {
+          "https://vballoli.github.io": {}
+        }
+      }
+    ],
+    "date": "2021-03-31",
+    "categories": [],
+    "contents": "\n\nContents\nFrom GC to Adaptive GC\nWeighted Residual Connections\n\nAdaptive Gradient Clipping introduced in the paper “High-Performance Large-Scale Image Recognition Without Normalization” from DeepMind by Brock et al. (2021)\nFrom GC to Adaptive GC\nPascanu, Mikolov, and Bengio (2013) first introduced the gradient clipping technique: for model parameters \\(\\theta\\) and loss function \\(L\\), the gradient for a particular layer/group of weights(\\(l\\)) \\(G^l\\) is \\(G^l = \\frac{\\partial L}{\\partial \\theta^l}\\). Now, Gradient clipping scales down the gradient based on it’s norm.\n\\[\nG^l \\rightarrow \\begin{cases} \\lambda \\frac{G^l}{\\vert\\vert G^l\\vert\\vert},& \\text{if } \\vert\\vert G^l\\vert\\vert > \\lambda\\\\\n    G^l,              & \\text{otherwise} \\end{cases}\n\\]\nHere, the gradient clipping is performed independent of the weights it affects, i.e it only dependent on \\(G\\). Brock et al. (2021) suggests Adaptive Gradient Clipping: if by modifying the gradient clipping condition by introducing the Frobenius norm of the weights(\\(W^l\\)) the gradient is updating and the gradient \\(G^l\\) for each block \\(i\\) in \\(\\theta\\) parameters:\n\\[\nG_i^l \\rightarrow \\begin{cases} \\lambda\\frac{\\vert\\vert W_i^l\\vert\\vert_F^*}{\\vert\\vert G_i^l\\vert\\vert_F},& \\text{if } \\frac{\\vert\\vert G_i^l\\vert\\vert_F}{\\vert\\vert W_i^l\\vert\\vert_F^*} > \\lambda \\\\ G_i^l,& \\text{otherwise }  \\end{cases}\n\\\\\nwhere \\hspace{1mm} {\\vert\\vert W_i^l\\vert\\vert_F^*} = max({\\vert\\vert W_i^l\\vert\\vert_F^*}, \\epsilon)\n\\]\nNotice that the condition that regulates the gradient norm depends on the norm with respect to the block of weights its being used to update. So if the weight norm is much higher than the gradient norm or if the gradient norm is too small with respect to the weight norm, the clipping suggests to scale the gradient down. This property makes the clipping adaptive.\nYou might find yourself now wondering, “This is cool, but this doesn’t solve the normalization of features that BatchNorm provides, so where’s that?”. Here, the second trick adapted from a previous paper by the first author Brock, De, and Smith (2021) that introduces - Weight Standardization and Activation scaling\n\\[\n\\text{Weight standardization: } \\hat W_{ij}= \\frac{W_{ij} - \\mu_i}{\\sqrt N \\sigma_i}\n\\]\nwhere \\((mean)\\mu = (1/N) \\sum_j W_{ij}\\), \\((variance) \\sigma_i^2 = (1/N)\\sum_j (W_{ij} - \\mu)^2\\) and \\(N\\) is fan-in i.e number of input units. In activation scaling, \\(\\gamma\\) is used to scale the activation outputs, where \\(\\gamma = \\sqrt{2/(1 - (1/\\pi))}\\) for ReLUs.\nWeighted Residual Connections\nResidual connections have traditionally been \\(h_{i+1} = h_i + f_i(h_i)\\), where \\(h_i\\) is input to the residual block \\(f_i\\). In the NF family of networks, it is modified to \\(h_{i+1} = h_i + \\alpha f_i(h_i/\\beta_i)\\). Intuitively, this translates to learning to scale the input and the output of the function inside the residual block, as opposed to setting it as identity.\nThese techniques are used in the NAS pipeline to discover the family of architectures the authors term as NFNets. Hence, all of the above techniques combined eliminates the mean-shift - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on GitHub\nhttps://github.com/vballoli/nfnets-pytorch\n\n\n\n\n\n\n\nBrock, Andrew, Soham De, and Samuel L Smith. 2021. “Characterizing Signal Propagation to Close the Performance Gap in Unnormalized ResNets.” arXiv Preprint arXiv:2101.08692.\n\n\nBrock, Andrew, Soham De, Samuel L Smith, and Karen Simonyan. 2021. “High-Performance Large-Scale Image Recognition Without Normalization.” arXiv Preprint arXiv:2102.06171.\n\n\nPascanu, Razvan, Tomas Mikolov, and Yoshua Bengio. 2013. “On the Difficulty of Training Recurrent Neural Networks.” In International Conference on Machine Learning, 1310–18. PMLR.\n\n\n\n\n",
+    "preview": "posts/2021-03-31-adaptive-gradient-clipping/nf.png",
+    "last_modified": "2021-04-01T01:07:58+02:00",
+    "input_file": {},
+    "preview_width": 522,
+    "preview_height": 157
+  },
+  {
     "path": "posts/2021-02-26-sam-sharpness-aware-minimization/",
     "title": "SAM: Sharpness-Aware Minimization",
     "description": "Improving generalization by minimizing loss in a neighbourhood space.",

@@ -2071,6 +2071,33 @@ document.addEventListener('DOMContentLoaded', function() {
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!/posts/.test(location.pathname)) {
+      return;
+    }
+
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", "tourdeml/comments");
+    script.setAttribute("issue-term", "og:title");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("label", "comment_thread");
+
+    /* wait for article to load, append script to article element */
+    var observer = new MutationObserver(function (mutations, observer) {
+      var article = document.querySelector("d-article");
+      if (article) {
+        observer.disconnect();
+        /* HACK: article scroll */
+        article.setAttribute("style", "overflow-y: hidden");
+        article.appendChild(script);
+      }
+    });
+
+    observer.observe(document.body, { childList: true });
+  });
+</script>
 <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-S6TKMZGJT0"></script>
 <script type="text/javascript" cookie-consent="tracking">
 window.dataLayer = window.dataLayer || [];
@@ -2208,12 +2235,15 @@ Hataya, Ryuichiro. 2020. <a href="https://github.com/moskomule/sam.pytorch">http
     </span>
   </p>
   <p>
-    <div class="subscribe"><h3><b>Weekly chirps!</b></h3><p>Join the newsletter to receive emails about nature's progess in simulating humans to train machines! Subscribe safely below (privacy-first approach) </p><iframe
-scrolling="no"
-style="width:100%!important;height:220px;border:1px #ccc solid !important"
-src="https://buttondown.email/tour.de.ml?as_embed=true"
-loading="lazy"
->Loading...</iframe>
+    <div class="subscribe"><h3><b>Weekly chirps!</b></h3><p>Join the newsletter to receive emails about nature's progess in simulating humans to train machines! Subscribe safely below (privacy-first approach) </p>
+<form method='post' action='https://buttondown.email/api/emails/embed-subscribe/tour.de.ml' class='embeddable-buttondown-form'>
+  <p>Enjoy this blog? Get notified of new posts via email:</p>
+  <input type='text' name='email' id='bd-email'/>
+  <input type='hidden' name='embed'
+         value='1'/>
+  <input type='submit' value='Subscribe' />
+</form>
+
 <h4>or use Feedly to view all your subscriptions at one place</h4><a href='https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Ftourdeml.github.io%2Fblog%2Findex.xml'  target='blank'><img id='feedlyFollow' src='http://s3.feedly.com/img/follows/feedly-follow-rectangle-flat-medium_2x.png' alt='follow us in feedly' width='71' height='28'></a></div>
   </p>
 </div>
