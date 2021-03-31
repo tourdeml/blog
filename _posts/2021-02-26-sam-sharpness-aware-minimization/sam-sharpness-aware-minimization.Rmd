@@ -61,12 +61,3 @@ def closure():
   return loss
 optim.step(closure)
 ```
-
-<script src="https://utteranc.es/client.js"
-        repo="tourdeml/comments"
-        issue-term="og:title"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>

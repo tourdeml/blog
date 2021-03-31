@@ -28,16 +28,8 @@
       <media:content url="https://tourdeml.github.io/blog/posts/2021-02-26-sam-sharpness-aware-minimization/msharp.png" medium="image" type="image/png" width="549" height="302"/>
     </item>
     <item>
-      <title>Hogwild! - Parallelized SGD</title>
-      <dc:creator>Test author</dc:creator>
-      <link>https://tourdeml.github.io/blog/posts/2021-01-17-hogwild-parallelized-sgd</link>
-      <description>Recent recepient of NeurIPS 2020 award for standing the test of time, Hogwild!...</description>
-      <guid>https://tourdeml.github.io/blog/posts/2021-01-17-hogwild-parallelized-sgd</guid>
-      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
       <title>Introducing Demystifying Gradients</title>
-      <dc:creator>Test author</dc:creator>
+      <dc:creator>Vaibhav Balloli</dc:creator>
       <link>https://tourdeml.github.io/blog/posts/2021-01-17-introducing-demystifying-gradients</link>
       <description>Presenting "Demystifying Gradients, by Tour de ML"</description>
       <guid>https://tourdeml.github.io/blog/posts/2021-01-17-introducing-demystifying-gradients</guid>

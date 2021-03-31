@@ -50,20 +50,11 @@ where $(mean)\mu = (1/N) \sum_j W_{ij}$, $(variance) \sigma_i^2 = (1/N)\sum_j (W
 
 Residual connections have traditionally been $h_{i+1} = h_i + f_i(h_i)$, where $h_i$ is input to the residual block $f_i$. In the NF family of networks, it is modified to $h_{i+1} = h_i + \alpha f_i(h_i/\beta_i)$. Intuitively, this translates to `learning to scale` the input and the output of the function inside the residual block, as opposed to setting it as identity.
 
-These techniques are used in the NAS pipeline to discover the family of architectures the authors term as `NFNets`. Hence, all of the above techniques combined __eliminates the mean-shift__ - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on [GitHub](https://github.com/vballoli/nfnets-pytorch)
-
-`https://github.com/vballoli/nfnets-pytorch`
-
 ```{r}
 library(knitr)
 include_graphics("nf.png")
 ```
 
-<script src="https://utteranc.es/client.js"
-        repo="tourdeml/comments"
-        issue-term="og:title"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
+These techniques are used in the NAS pipeline to discover the family of architectures the authors term as `NFNets`. Hence, all of the above techniques combined __eliminates the mean-shift__ - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on [GitHub](https://github.com/vballoli/nfnets-pytorch)
+
+`https://github.com/vballoli/nfnets-pytorch`

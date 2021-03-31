@@ -2199,19 +2199,11 @@ where \hspace{1mm} {\vert\vert W_i^l\vert\vert_F^*} = max({\vert\vert W_i^l\vert
 <p>where <span class="math inline">\((mean)\mu = (1/N) \sum_j W_{ij}\)</span>, <span class="math inline">\((variance) \sigma_i^2 = (1/N)\sum_j (W_{ij} - \mu)^2\)</span> and <span class="math inline">\(N\)</span> is fan-in i.e number of input units. In <em>activation scaling</em>, <span class="math inline">\(\gamma\)</span> is used to scale the activation outputs, where <span class="math inline">\(\gamma = \sqrt{2/(1 - (1/\pi))}\)</span> for ReLUs.</p>
 <h1 id="weighted-residual-connections">Weighted Residual Connections</h1>
 <p>Residual connections have traditionally been <span class="math inline">\(h_{i+1} = h_i + f_i(h_i)\)</span>, where <span class="math inline">\(h_i\)</span> is input to the residual block <span class="math inline">\(f_i\)</span>. In the NF family of networks, it is modified to <span class="math inline">\(h_{i+1} = h_i + \alpha f_i(h_i/\beta_i)\)</span>. Intuitively, this translates to <code>learning to scale</code> the input and the output of the function inside the residual block, as opposed to setting it as identity.</p>
-<p>These techniques are used in the NAS pipeline to discover the family of architectures the authors term as <code>NFNets</code>. Hence, all of the above techniques combined <strong>eliminates the mean-shift</strong> - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on <a href="https://github.com/vballoli/nfnets-pytorch">GitHub</a></p>
-<p><code>https://github.com/vballoli/nfnets-pytorch</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="nf.png" width="261" /></p>
 </div>
-<script src="https://utteranc.es/client.js"
-        repo="tourdeml/comments"
-        issue-term="og:title"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
+<p>These techniques are used in the NAS pipeline to discover the family of architectures the authors term as <code>NFNets</code>. Hence, all of the above techniques combined <strong>eliminates the mean-shift</strong> - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on <a href="https://github.com/vballoli/nfnets-pytorch">GitHub</a></p>
+<p><code>https://github.com/vballoli/nfnets-pytorch</code></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-weightstandardizationbrock" class="csl-entry" role="doc-biblioentry">
@@ -2240,7 +2232,6 @@ Pascanu, Razvan, Tomas Mikolov, and Yoshua Bengio. 2013. <span>“On the Difficu
   <p>
     <div class="subscribe"><h3><b>Weekly chirps!</b></h3><p>Join the newsletter to receive emails about nature's progess in simulating humans to train machines! Subscribe safely below (privacy-first approach) </p>
 <form method='post' action='https://buttondown.email/api/emails/embed-subscribe/tour.de.ml' class='embeddable-buttondown-form'>
-  <p>Enjoy this blog? Get notified of new posts via email:</p>
   <input type='text' name='email' id='bd-email'/>
   <input type='hidden' name='embed'
          value='1'/>
