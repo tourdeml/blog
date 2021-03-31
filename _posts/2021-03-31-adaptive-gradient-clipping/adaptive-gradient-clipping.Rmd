@@ -48,7 +48,7 @@ where $(mean)\mu = (1/N) \sum_j W_{ij}$, $(variance) \sigma_i^2 = (1/N)\sum_j (W
 
 # Weighted Residual Connections 
 
-Residual connections have traditionally been $h_{i+1} = h_i + f_i(h_i)$, where $h_i$ is input to the residual block $f_i$. In the NF family of networks, it is modified to $h_{i+1} = h_i + \alpha f_i(h_i/\beta_i)$. Intuitively, this translates to `learning to scale` the input and the output of the function inside the residual block, as opposed to setting it as identity.
+Residual connections have traditionally been $h_{i+1} = h_i + f_i(h_i)$, where $h_i$ is input to the residual block $f_i$. In the NF family of networks, it is modified to $h_{i+1} = h_i + \alpha f_i(h_i/\beta_i)$. Intuitively, this translates to $\alpha$ `scaling the residual block activations` to increase variance and $\beta$ to `scale down` the input of the function inside the residual block, as opposed to setting it as identity. $\alpha$ is set to `0.2` and $\beta$ is predicted as $\beta=\sqrt{Variance(h_i)}$.
 
 ```{r}
 library(knitr)
