@@ -6,21 +6,15 @@
     "author": [
       {
         "name": "Vaibhav Balloli",
-        "url": {}
-      },
-      {
-        "name": "",
-        "url": {
-          "https://vballoli.github.io": {}
-        }
+        "url": "https://vballoli.github.io"
       }
     ],
     "date": "2021-03-31",
     "categories": [],
     "contents": "\n\nContents\nFrom GC to Adaptive GC\nWeighted Residual Connections\n\nAdaptive Gradient Clipping introduced in the paper “High-Performance Large-Scale Image Recognition Without Normalization” from DeepMind by Brock et al. (2021)\nFrom GC to Adaptive GC\nPascanu, Mikolov, and Bengio (2013) first introduced the gradient clipping technique: for model parameters \\(\\theta\\) and loss function \\(L\\), the gradient for a particular layer/group of weights(\\(l\\)) \\(G^l\\) is \\(G^l = \\frac{\\partial L}{\\partial \\theta^l}\\). Now, Gradient clipping scales down the gradient based on it’s norm.\n\\[\nG^l \\rightarrow \\begin{cases} \\lambda \\frac{G^l}{\\vert\\vert G^l\\vert\\vert},& \\text{if } \\vert\\vert G^l\\vert\\vert > \\lambda\\\\\n    G^l,              & \\text{otherwise} \\end{cases}\n\\]\nHere, the gradient clipping is performed independent of the weights it affects, i.e it only dependent on \\(G\\). Brock et al. (2021) suggests Adaptive Gradient Clipping: if by modifying the gradient clipping condition by introducing the Frobenius norm of the weights(\\(W^l\\)) the gradient is updating and the gradient \\(G^l\\) for each block \\(i\\) in \\(\\theta\\) parameters:\n\\[\nG_i^l \\rightarrow \\begin{cases} \\lambda\\frac{\\vert\\vert W_i^l\\vert\\vert_F^*}{\\vert\\vert G_i^l\\vert\\vert_F},& \\text{if } \\frac{\\vert\\vert G_i^l\\vert\\vert_F}{\\vert\\vert W_i^l\\vert\\vert_F^*} > \\lambda \\\\ G_i^l,& \\text{otherwise }  \\end{cases}\n\\\\\nwhere \\hspace{1mm} {\\vert\\vert W_i^l\\vert\\vert_F^*} = max({\\vert\\vert W_i^l\\vert\\vert_F^*}, \\epsilon)\n\\]\nNotice that the condition that regulates the gradient norm depends on the norm with respect to the block of weights its being used to update. So if the weight norm is much higher than the gradient norm or if the gradient norm is too small with respect to the weight norm, the clipping suggests to scale the gradient down. This property makes the clipping adaptive.\nYou might find yourself now wondering, “This is cool, but this doesn’t solve the normalization of features that BatchNorm provides, so where’s that?”. Here, the second trick adapted from a previous paper by the first author Brock, De, and Smith (2021) that introduces - Weight Standardization and Activation scaling\n\\[\n\\text{Weight standardization: } \\hat W_{ij}= \\frac{W_{ij} - \\mu_i}{\\sqrt N \\sigma_i}\n\\]\nwhere \\((mean)\\mu = (1/N) \\sum_j W_{ij}\\), \\((variance) \\sigma_i^2 = (1/N)\\sum_j (W_{ij} - \\mu)^2\\) and \\(N\\) is fan-in i.e number of input units. In activation scaling, \\(\\gamma\\) is used to scale the activation outputs, where \\(\\gamma = \\sqrt{2/(1 - (1/\\pi))}\\) for ReLUs.\nWeighted Residual Connections\nResidual connections have traditionally been \\(h_{i+1} = h_i + f_i(h_i)\\), where \\(h_i\\) is input to the residual block \\(f_i\\). In the NF family of networks, it is modified to \\(h_{i+1} = h_i + \\alpha f_i(h_i/\\beta_i)\\). Intuitively, this translates to \\(\\alpha\\) scaling the residual block activations to increase variance and \\(\\beta\\) to scale down the input of the function inside the residual block, as opposed to setting it as identity. \\(\\alpha\\) is set to 0.2 and \\(\\beta\\) is predicted as \\(\\beta=\\sqrt{Variance(h_i)}\\).\n\n\n\nThese techniques are used in the NAS pipeline to discover the family of architectures the authors term as NFNets. Hence, all of the above techniques combined eliminates the mean-shift - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on GitHub\nhttps://github.com/vballoli/nfnets-pytorch\n\n\n\nBrock, Andrew, Soham De, and Samuel L Smith. 2021. “Characterizing Signal Propagation to Close the Performance Gap in Unnormalized ResNets.” arXiv Preprint arXiv:2101.08692.\n\n\nBrock, Andrew, Soham De, Samuel L Smith, and Karen Simonyan. 2021. “High-Performance Large-Scale Image Recognition Without Normalization.” arXiv Preprint arXiv:2102.06171.\n\n\nPascanu, Razvan, Tomas Mikolov, and Yoshua Bengio. 2013. “On the Difficulty of Training Recurrent Neural Networks.” In International Conference on Machine Learning, 1310–18. PMLR.\n\n\n\n\n",
     "preview": "posts/2021-03-31-adaptive-gradient-clipping/nf.png",
-    "last_modified": "2021-04-01T01:42:49+02:00",
-    "input_file": "adaptive-gradient-clipping.utf8.md",
+    "last_modified": "2021-04-01T02:38:42+02:00",
+    "input_file": {},
     "preview_width": 522,
     "preview_height": 157
   },
@@ -31,16 +25,14 @@
     "author": [
       {
         "name": "Vaibhav Balloli",
-        "url": {
-          "https://vballoli.github.io": {}
-        }
+        "url": "https://vballoli.github.io"
       }
     ],
     "date": "2021-02-26",
     "categories": [],
     "contents": "\n\nContents\nFoundation\nM-Sharpness\nCode\n\nSharness-Aware Minimization(SAM)Foret et al. (2020) is a simple, yet interesting procedure that aims to minimize the loss and the loss sharpness using gradient descent by identifying a parameter-neighbourhood that has the same uniform loss.\nFoundation\nGiven a training set \\(S\\) sampled i.i.d from \\(D\\), the following theorem states a bound for generalization in terms of neighbourhood training loss at weight \\(w\\)\n\\[\nL_D(w) \\leq max_{||\\epsilon \\leq \\rho ||}L_S(w+\\epsilon) + h(\\frac{||w||_2^2}{\\rho^2})\n\\] Notice that the second term is equivalent to L2 normalization. Taking the first term: \\[\nmax_{||\\epsilon \\leq \\rho ||}L_S(w + \\epsilon) = [max_{||\\epsilon \\leq \\rho ||}L_S(w + \\epsilon) - L_S(w)] + L_S(w)\n\\] The term \\(max_{||\\epsilon \\leq \\rho ||}L_S(w + \\epsilon) - L_S(w)\\) is defined as sharpness at \\(w\\). The training objective is now \\(L_{SAM}(w) + \\lambda||w||_2^2\\), where \\(L_{SAM}(w) = max_{||\\epsilon \\leq \\rho ||}L_S(w+\\epsilon)\\). After taylor series to this equation and solving for \\(\\epsilon = \\epsilon(w)\\), we arrive at: >\\[\n\\epsilon(w) = \\rho sign(\\nabla_wL_S(w)) \\frac{|\\nabla_wL_S(w)|^{q-1}}{(||\\nabla_wL_S(w)||_{q}^{q})^p},(q = \\frac{p}{p-1}\\,from\\,Holder's \\,inequality)\n\\]\nSimply put, at \\(p = q = 2\\), SAM is a two-step process: 1) Calculate the gradients(First backward pass) 2) Calculate \\(\\epsilon(w)\\) 3) Recaclulate gradients(Second backward pass). This means if if all the batches are used for training, each epoch involves calculating gradients twice, which can be expensive.\nM-Sharpness\nThe paper further defines m-sharpness: the idea behind which is if m subset of the training data batch is used to calculate the gradients in the first backward pass of the epoch. The diagram below from the paper illustrates the impact of m. The left chart indicates that at \\(m=4,16\\) the generalization gap is lower and the right chart indicates the correlation of generalization gap and m which shows that lower values of m have higher correlation with the generalization gap.\n\n\n\nCode\nThis repository Hataya (2020) provides a clean implementation of SAM in PyTorch. We further extend this implementation to be able to wrap most optimizers. You can find the code at Balloli (2021)\nmodel = resnet18()\noptim = torch.optim.SGD(model.parameters(), 1e-3)\noptim = SAM(model.parameters(), optim)\ndef closure():\n  optim.zero_grad()\n  loss = model(torch.randn(1,3,64,64)).sum()\n  loss.backward()\n  return loss\noptim.step(closure)\n\n\n\nBalloli, Vaibhav. 2021. https://github.com/tourdeml/sam.\n\n\nForet, Pierre, Ariel Kleiner, Hossein Mobahi, and Behnam Neyshabur. 2020. “Sharpness-Aware Minimization for Efficiently Improving Generalization.”\n\n\nHataya, Ryuichiro. 2020. https://github.com/moskomule/sam.pytorch.\n\n\n\n\n",
     "preview": "posts/2021-02-26-sam-sharpness-aware-minimization/msharp.png",
-    "last_modified": "2021-04-01T01:29:05+02:00",
+    "last_modified": "2021-04-01T02:39:23+02:00",
     "input_file": {},
     "preview_width": 549,
     "preview_height": 302
@@ -52,14 +44,14 @@
     "author": [
       {
         "name": "Vaibhav Balloli",
-        "url": {}
+        "url": "https://vballoli.github.io"
       }
     ],
     "date": "2021-01-17",
     "categories": [],
     "contents": "\nDemystifying Gradients is a blog that summarizes and simplifies interesting, emerging concepts in the field of Deep Learning.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-04-01T01:32:04+02:00",
+    "last_modified": "2021-04-01T02:40:43+02:00",
     "input_file": {}
   }
 ]

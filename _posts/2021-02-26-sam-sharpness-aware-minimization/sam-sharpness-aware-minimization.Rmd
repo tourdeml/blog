@@ -4,7 +4,7 @@ description: |
   Improving generalization by minimizing loss in a neighbourhood space.
 author:
   - name: Vaibhav Balloli
-    url: {https://vballoli.github.io}
+    url: https://vballoli.github.io
 date: 02-26-2021
 bibliography: biblio.bib
 output:

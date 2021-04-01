@@ -4,6 +4,7 @@ description: |
   Presenting "Demystifying Gradients, by Tour de ML"
 author:
   - name: Vaibhav Balloli
+    url: https://vballoli.github.io
 date: 01-17-2021
 output:
   distill::distill_article:

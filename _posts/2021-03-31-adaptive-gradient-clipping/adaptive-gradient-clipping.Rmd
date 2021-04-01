@@ -4,7 +4,7 @@ description: |
   Gradient Clipping to remove batchnorm layers.
 author:
   - name: Vaibhav Balloli
-  - url: {https://vballoli.github.io}
+    url: https://vballoli.github.io
 date: 03-31-2021
 bibliography: biblio.bib
 output:
