@@ -38,7 +38,7 @@ $$
 
 Notice that the condition that regulates the gradient norm depends on the norm with respect to the block of weights its being used to update. Hence, if the gradient is too big for the weights or the weights are too small for the gradient, this clipping strategy suggests to scale the gradient down. This property makes the clipping *adaptive*.
 
-You might find yourself now wondering, *"This is cool, but this doesn't solve the normalization of features that BatchNorm provides, so where's that?"*. Here, the second trick adapted from a previous paper by the first author @weightstandardizationbrock that introduces - **Weight Standardization** and **Activation scaling**
+You might find yourself wondering now, *"This is cool, but this doesn't solve the normalization of features that BatchNorm provides, so where's that?"*. Here, the second trick adapted from a previous paper by the first author @weightstandardizationbrock that introduces - **Weight Standardization** and **Activation scaling**
 
 $$
 \text{Weight standardization: } \hat W_{ij}= \frac{W_{ij} - \mu_i}{\sqrt N \sigma_i}
@@ -55,13 +55,13 @@ library(knitr)
 include_graphics("nf.png")
 ```
 
-# Batch intricacies
+# Batch size intricacies
 
 As [Yannic Kilcher explains](https://www.youtube.com/watch?v=rNkHjZtH0RQ&t=1410s&ab_channel=YannicKilcher), there is an *implicit dependence on the batch size* in AGC, while `BatchNorm` has an *explicit dependence on the batch size*. However, the paper doesn't clearly mention how disentangling the above components effect the accuracy, etc. 
 
 # Conclusion 
 
-To summarize, the `Weight standardization` and `Activation Scaling` in combination affect the mean-shift that `BatchNorm` provides. The `Adaptive Gradient Clipping` helps maintain this activation mean by making sure the parameters don't significantly change that disrupts this mean.  
+To summarize the contributions, `Weight standardization` and `Activation Scaling` in combination control the mean-shift at initialization that `BatchNorm` provides. The `Adaptive Gradient Clipping` helps prevent the shift by making sure the parameters don't significantly grow. 
 
 These techniques are used in the NAS pipeline to discover the family of architectures the authors term as `NFNets`. Hence, all of the above techniques combined __eliminates the mean-shift__ - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on [GitHub](https://github.com/vballoli/nfnets-pytorch)
 
@@ -70,4 +70,5 @@ These techniques are used in the NAS pipeline to discover the family of architec
 
 # Prospective areas
 
-There are interesting future avenues using these tricks. Specifically, in terms of Meta Learning for classification, how the pre-training gradients effect and translate to task-specific gradients. 
+There are interesting future avenues using these tricks. Specifically, in Meta Learning for classification where BatchNorm plays a significant role and how the pre-training on these gradients effect and translate to task-specific adaptation.
+

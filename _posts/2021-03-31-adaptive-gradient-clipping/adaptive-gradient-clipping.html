@@ -1487,7 +1487,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#from-gc-to-adaptive-gc">From GC to Adaptive GC</a></li>
 <li><a href="#weighted-residual-connections">Weighted Residual Connections</a></li>
-<li><a href="#batch-intricacies">Batch intricacies</a></li>
+<li><a href="#batch-size-intricacies">Batch size intricacies</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 <li><a href="#prospective-areas">Prospective areas</a></li>
 </ul>
@@ -1507,7 +1507,7 @@ G_i^l \rightarrow \begin{cases} \lambda\frac{\vert\vert W_i^l\vert\vert_F^*}{\ve
 where \hspace{1mm} {\vert\vert W_i^l\vert\vert_F^*} = max({\vert\vert W_i^l\vert\vert_F^*}, \epsilon)
 \]</span></p>
 <p>Notice that the condition that regulates the gradient norm depends on the norm with respect to the block of weights its being used to update. Hence, if the gradient is too big for the weights or the weights are too small for the gradient, this clipping strategy suggests to scale the gradient down. This property makes the clipping <em>adaptive</em>.</p>
-<p>You might find yourself now wondering, <em>“This is cool, but this doesn’t solve the normalization of features that BatchNorm provides, so where’s that?”</em>. Here, the second trick adapted from a previous paper by the first author <span class="citation" data-cites="weightstandardizationbrock"><a href="#ref-weightstandardizationbrock" role="doc-biblioref">Brock, De, and Smith</a> (<a href="#ref-weightstandardizationbrock" role="doc-biblioref">2021</a>)</span> that introduces - <strong>Weight Standardization</strong> and <strong>Activation scaling</strong></p>
+<p>You might find yourself wondering now, <em>“This is cool, but this doesn’t solve the normalization of features that BatchNorm provides, so where’s that?”</em>. Here, the second trick adapted from a previous paper by the first author <span class="citation" data-cites="weightstandardizationbrock"><a href="#ref-weightstandardizationbrock" role="doc-biblioref">Brock, De, and Smith</a> (<a href="#ref-weightstandardizationbrock" role="doc-biblioref">2021</a>)</span> that introduces - <strong>Weight Standardization</strong> and <strong>Activation scaling</strong></p>
 <p><span class="math display">\[
 \text{Weight standardization: } \hat W_{ij}= \frac{W_{ij} - \mu_i}{\sqrt N \sigma_i}
 \]</span></p>
@@ -1517,14 +1517,14 @@ where \hspace{1mm} {\vert\vert W_i^l\vert\vert_F^*} = max({\vert\vert W_i^l\vert
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="nf.png" width="261" /></p>
 </div>
-<h1 id="batch-intricacies">Batch intricacies</h1>
+<h1 id="batch-size-intricacies">Batch size intricacies</h1>
 <p>As <a href="https://www.youtube.com/watch?v=rNkHjZtH0RQ&amp;t=1410s&amp;ab_channel=YannicKilcher">Yannic Kilcher explains</a>, there is an <em>implicit dependence on the batch size</em> in AGC, while <code>BatchNorm</code> has an <em>explicit dependence on the batch size</em>. However, the paper doesn’t clearly mention how disentangling the above components effect the accuracy, etc.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>To summarize, the <code>Weight standardization</code> and <code>Activation Scaling</code> in combination affect the mean-shift that <code>BatchNorm</code> provides. The <code>Adaptive Gradient Clipping</code> helps maintain this activation mean by making sure the parameters don’t significantly change that disrupts this mean.</p>
+<p>To summarize the contributions, <code>Weight standardization</code> and <code>Activation Scaling</code> in combination control the mean-shift at initialization that <code>BatchNorm</code> provides. The <code>Adaptive Gradient Clipping</code> helps prevent the shift by making sure the parameters don’t significantly grow.</p>
 <p>These techniques are used in the NAS pipeline to discover the family of architectures the authors term as <code>NFNets</code>. Hence, all of the above techniques combined <strong>eliminates the mean-shift</strong> - the central role of BatchNorm. This technique scales well with large training batch sizes. The PyTorch code is available on <a href="https://github.com/vballoli/nfnets-pytorch">GitHub</a></p>
 <p><code>https://github.com/vballoli/nfnets-pytorch</code></p>
 <h1 id="prospective-areas">Prospective areas</h1>
-<p>There are interesting future avenues using these tricks. Specifically, in terms of Meta Learning for classification, how the pre-training gradients effect and translate to task-specific gradients.</p>
+<p>There are interesting future avenues using these tricks. Specifically, in Meta Learning for classification where BatchNorm plays a significant role and how the pre-training on these gradients effect and translate to task-specific adaptation.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-weightstandardizationbrock" class="csl-entry" role="doc-biblioentry">
