@@ -6,14 +6,14 @@
       "description": "Clear, Crisp, Open Source.",
       "author": [],
       "contents": "\nThis blog aims to deconstruct state-of-the-art, unique approaches in solving various problems across fields including Computer Vision, Differential privacy, Hardware & Deep Learning, Natural Language Processing, Optimization.\nJoin the club to catch up on on new posts including updates on recent research, weekly updates in the world of neural networks and many more. The newsletter is handled by ButtonDown, with sole focus on keeping your data private, so do consider subscribing. Incase you don’t need notifications, consider subscribing using Feedly - you control when you get to receive the updates!\n\n\n\nor use Feedly to view all your subscriptions at one place\n\n\n\n\n\n",
-      "last_modified": "2021-04-01T02:40:48+02:00"
+      "last_modified": "2021-04-01T15:15:52+02:00"
     },
     {
       "path": "index.html",
       "title": "Demystifying Gradients",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-04-01T02:40:51+02:00"
+      "last_modified": "2021-04-01T15:15:52+02:00"
     }
   ],
   "collections": ["posts/posts.json"]
